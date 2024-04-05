@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+
 
 namespace PudelkoLib
 {
@@ -140,6 +144,60 @@ namespace PudelkoLib
                 return Equals(Obj);
             }
         }
+        public static bool operator ==(Pudelko p1, Pudelko p2)
+        {
+            if (((object)p1) == null || ((object)p2) == null)
+            {
+                return Object.Equals(p1, p2);
+            }
+            return p1.Equals(p2);
+        }
 
+        public static bool operator !=(Pudelko p1, Pudelko p2)
+        {
+            if (((object)p1) is null || ((object)p2) is null)
+            {
+                return !Object.Equals(p1, p2);
+            }
+            return !(p1.Equals(p2));
+        }
+
+        public static implicit operator Pudelko(ValueTuple<int, int, int> tuple)
+        {
+            return new Pudelko(tuple.Item1, tuple.Item2, tuple.Item3, UnitOfMeasure.milimeter);
+        }
+
+        public static explicit operator double[](Pudelko p)
+        {
+            double[] tablica = new double[3];
+            tablica[0] = p.A;
+            tablica[1] = p.B;
+            tablica[2] = p.C;
+            return tablica;
+        }
+
+        public override int GetHashCode()
+        {
+            return Objetosc.GetHashCode();
+        }
+
+        public double this[int i]
+        {
+            get
+            {
+                return i switch { 0 => this.A, 1 => this.B, 2 => this.C, _ => throw new ArgumentException() };
+            }
+        }
+
+        public IEnumerator<double> GetEnumerator()
+        {
+            yield return A;
+            yield return B;
+            yield return C;
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
     }
 }
