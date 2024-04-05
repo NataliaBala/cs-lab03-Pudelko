@@ -72,6 +72,74 @@ namespace PudelkoLib
             this.a = Change((a == null) ? check : (double)a, unit);
             this.b = Change((b == null) ? check : (double)b, unit);
             this.c = Change((c == null) ? check : (double)c, unit);
+            public override string ToString()
+        {
+            return string.Format($"{A:F3} m × {B:F3} m × {C:F3} m");
         }
+
+        public string ToString(string format, IFormatProvider formatProvider = null)
+        {
+            if (formatProvider == null)
+            {
+                _ = CultureInfo.CurrentCulture;
+            }
+            if (format == null)
+            {
+                format = "m";
+            }
+
+            switch (format)
+            {
+                case "m":
+                    return ToString();
+                case "cm":
+                    X = Math.Round(A * 100, 1);
+                    Y = Math.Round(B * 100, 1);
+                    Z = Math.Round(C * 100, 1);
+                    return string.Format($"{X:F1} {format} × {Y:F1} {format} × {Z:F1} {format}");
+                case "mm":
+                    X = Math.Round(A * 1000);
+                    Y = Math.Round(B * 1000);
+                    Z = Math.Round(C * 1000);
+                    return $"{X} {format} × {Y} {format} × {Z} {format}";
+                default:
+                    throw new FormatException();
+            }
+        }
+
+        public bool Equals(Pudelko pud)
+        {
+            if (pud == null)
+            {
+                return false;
+            }
+            if (this.Objetosc == pud.Objetosc)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            Pudelko Obj = obj as Pudelko;
+            if (Obj == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(Obj);
+            }
+        }
+
     }
 }
