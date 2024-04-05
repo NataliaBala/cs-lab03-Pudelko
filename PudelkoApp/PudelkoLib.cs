@@ -76,7 +76,9 @@ namespace PudelkoLib
             this.a = Change((a == null) ? check : (double)a, unit);
             this.b = Change((b == null) ? check : (double)b, unit);
             this.c = Change((c == null) ? check : (double)c, unit);
-            public override string ToString()
+        }
+
+        public override string ToString()
         {
             return string.Format($"{A:F3} m × {B:F3} m × {C:F3} m");
         }
@@ -144,6 +146,7 @@ namespace PudelkoLib
                 return Equals(Obj);
             }
         }
+
         public static bool operator ==(Pudelko p1, Pudelko p2)
         {
             if (((object)p1) == null || ((object)p2) == null)
@@ -195,10 +198,12 @@ namespace PudelkoLib
             yield return B;
             yield return C;
         }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
         }
+
         public static Pudelko Parse(string text)
         {
             double x, y, z;
