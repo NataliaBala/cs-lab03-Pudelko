@@ -199,5 +199,39 @@ namespace PudelkoLib
         {
             return this.GetEnumerator();
         }
+        public static Pudelko Parse(string text)
+        {
+            double x, y, z;
+            string[] p = text.Split(" ");
+            UnitOfMeasure xxx;
+            switch (p[1])
+            {
+                case "m":
+                    x = double.Parse(p[0], CultureInfo.InvariantCulture);
+                    y = double.Parse(p[3], CultureInfo.InvariantCulture);
+                    z = double.Parse(p[6], CultureInfo.InvariantCulture);
+                    xxx = UnitOfMeasure.meter;
+                    break;
+                case "mm":
+                    x = double.Parse(p[0], CultureInfo.InvariantCulture);
+                    y = double.Parse(p[3], CultureInfo.InvariantCulture);
+                    z = double.Parse(p[6], CultureInfo.InvariantCulture);
+                    xxx = UnitOfMeasure.milimeter;
+                    break;
+                case "cm":
+                    x = double.Parse(p[0], CultureInfo.InvariantCulture);
+                    y = double.Parse(p[3], CultureInfo.InvariantCulture);
+                    z = double.Parse(p[6], CultureInfo.InvariantCulture);
+                    xxx = UnitOfMeasure.centimeter;
+                    break;
+                default:
+                    x = double.Parse(p[0], CultureInfo.InvariantCulture);
+                    y = double.Parse(p[2], CultureInfo.InvariantCulture);
+                    z = double.Parse(p[4], CultureInfo.InvariantCulture);
+                    xxx = UnitOfMeasure.meter;
+                    break;
+            }
+            return new Pudelko(x, y, z, xxx);
+        }
     }
 }
